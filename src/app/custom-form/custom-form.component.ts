@@ -1,4 +1,5 @@
-//https://stackblitz.com/edit/angular-epkcoy?file=src%2Fapp%2Fcustom-form%2Fgeneric-input-row%2Fgeneric-input-row.component.html
+// refer to link for example
+// https://stackblitz.com/edit/github-fjhr7s-5yeic7
 
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
