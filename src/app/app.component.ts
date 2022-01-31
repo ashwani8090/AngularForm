@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, ValidatorFn, AbstractCon
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // handleSubmit: Subject<any> = new Subject();
+  handleSubmit: Subject<any> = new Subject();
   fields = [
     {
       type: 'control', name: 'category', label: 'Last Category', inputType: 'date', placeHolder: 'Last Category',
