@@ -1,0 +1,50 @@
+<div *ngIf="field.inputType == 'text'" class="form-group">
+	<label [for]="field.name">{{field.label}}:</label>
+	<input type="text" 
+	pInputText 
+	[id]="field.name" 
+	class="form-control" 
+	[formControl]="formGroup.get(field.name)" 
+	[placeholder]="field.placeHolder ? field.placeHolder : ''" />
+</div>
+
+<div *ngIf="field.inputType == 'number'" class="form-group">
+	<label [for]="field.name">{{field.label}}:</label>
+	<input 
+	type="number" 
+	pInputText 
+	[id]="field.name" 
+	class="form-control" 
+	[formControl]="formGroup.get(field.name)" 
+	[placeholder]="field.placeHolder ? field.placeHolder : ''" />
+</div>
+
+
+<div *ngIf="field.inputType == 'date'" class="form-group">
+	<label [for]="field.name">{{field.label}}:</label>
+	<input 
+	type="date" 
+	pInputText 
+	[id]="field.name" 
+	class="form-control" 
+	[formControl]="formGroup.get(field.name)" 
+	[placeholder]="field.placeHolder ? field.placeHolder : ''" />
+</div>
+
+
+<div *ngIf="field.inputType == 'dropdown'" class="form-group">
+	<label [for]="field.name">{{field.label}}</label>
+	<mat-form-field class="form-dropdown">
+		<mat-select 
+			[id]="field.name" 
+			[formControl]="formGroup.get(field.name)"
+			[placeholder]="field.placeHolder ? field.placeHolder : ''" 
+			[(ngModel)]="selectedValue" 
+			[name]="field.name" 
+			(change)="changeClient($event.value)">
+		 	 <mat-option *ngFor="let client of clients" [value]="client.id">
+				{{client.clientName}}
+		 	 </mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>

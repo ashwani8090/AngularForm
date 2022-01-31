@@ -1,0 +1,20 @@
+<form (ngSubmit)="onSubmit()" class="custom_form" novalidate [formGroup]="myForm">
+    <ng-template ngFor let-field [ngForOf]="fields">
+
+        <div class="inputs" *ngIf="field.type == 'control'">
+            <generic-input-row [field]="field" [formGroup]="myForm"></generic-input-row>
+        </div>
+
+        <div class="group-container" *ngIf="field.type == 'group'" [formGroupName]="field.name">
+            <h3>{{field.groupTitle}}</h3>
+            <div class="group">
+                <ng-template ngFor let-control [ngForOf]="field.controls">
+                    <div class="inputs">
+                        <generic-input-row [field]="control" [formGroup]="myForm.get(field.name)"></generic-input-row>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+    </ng-template>
+</form>

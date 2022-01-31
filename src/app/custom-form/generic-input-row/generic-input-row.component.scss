@@ -1,0 +1,23 @@
+.form-group {
+    display: flex;
+    width: 186px;
+    flex-direction: column;
+    label {
+        letter-spacing: 0px;
+        color: #15133c;
+        opacity: 1;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    input {
+        border: 1px solid #bbbbbb;
+        border-radius: 1px;
+        height: 30px;
+    }
+    .form-dropdown {
+        width: 186px;
+        border: 1px solid #bbbbbb;
+        border-radius: 1px;
+        height: 30px;
+    }
+}
