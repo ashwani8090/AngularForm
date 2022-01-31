@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { FormBuilder, FormGroup, FormArray, Validators, ValidatorFn, AbstractControl, NgForm, FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { FormServiceService } from './custom-form/service/form-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,18 @@ import { FormBuilder, FormGroup, FormArray, Validators, ValidatorFn, AbstractCon
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(
+    private fs: FormServiceService
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.fs && this.fs.formDataSubmit.subscribe((data)=>{
+    console.log({data});
+  })    
+  }
+
   handleSubmit: Subject<any> = new Subject();
   fields = [
     {
@@ -36,6 +49,6 @@ export class AppComponent {
   ]
 
   submit() {
-    this.handleSubmit.next(true)
+    this.fs.submit();
   }
 }

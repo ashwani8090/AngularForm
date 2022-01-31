@@ -12,6 +12,7 @@ import {
   AllValidationErrors,
   getFormValidationErrors
 } from './interfaces';
+import { FormServiceService } from './service/form-service.service';
 
 @Component({
   selector: 'custom-form',
@@ -19,18 +20,20 @@ import {
   styleUrls: ['./custom-form.component.scss']
 })
 export class CustomFormComponent implements OnInit {
-  myForm: FormGroup;
   @Input('fields') fields: Array<GenericFormType> = [];
-  @Input() handleSubmit: Subject<any> = new Subject();
-
+  @Input() isSubmitBtn: boolean = true;
+  
+  public myForm: FormGroup;
   private changeSubscriptions: Array<Subscription> = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private fs: FormServiceService) {
   }
 
   ngOnInit() {
-    this.handleSubmit && this.handleSubmit.subscribe(() => {
-      this.onSubmit()
+    this.fs.submitListener.subscribe(()=>{
+      this.onSubmit();
     })
     this.myForm = this.fb.group({});
     this.initFormFields();
@@ -41,9 +44,8 @@ export class CustomFormComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      console.log(this.myForm.value)
+      this.fs.formDataSubmit.next(this.myForm.value);
     } else {
-      console.log(this.myForm)
       const error: AllValidationErrors = getFormValidationErrors(this.myForm.controls).shift();
       if (error) {
         let text;
