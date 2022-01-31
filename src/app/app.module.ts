@@ -7,6 +7,7 @@ import { CustomFormComponent } from './custom-form/custom-form.component';
 import { GenericInputRowComponent } from './custom-form/generic-input-row/generic-input-row.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {MatSelectModule} from '@angular/material/select';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatSelectModule} from '@angular/material/select';
   providers: [],
   bootstrap: [AppComponent],
   exports: [CustomFormComponent,
-    GenericInputRowComponent]
+    GenericInputRowComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
