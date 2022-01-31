@@ -26,6 +26,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   bootstrap: [AppComponent],
   exports: [CustomFormComponent,
     GenericInputRowComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
