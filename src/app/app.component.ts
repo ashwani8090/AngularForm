@@ -25,7 +25,11 @@ export class AppComponent {
         { name: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
         { name: 'lastname', label: 'Last Name', inputType: 'text' },
         { name: 'age', label: 'Age', inputType: 'text' },
-        { name: 'group', label: 'Group', inputType: 'text' },
+        { name: 'group1', label: 'Group', inputType: 'text' },
+        { name: 'group2', label: 'Group', inputType: 'text' },
+        { name: 'group3', label: 'Group', inputType: 'text' },
+        { name: 'group4', label: 'Group', inputType: 'text' },
+        { name: 'group5', label: 'Group', inputType: 'text' },
         // { name: 'gender', label: 'Gender', inputType: 'dropdown' }
       ]
     },
