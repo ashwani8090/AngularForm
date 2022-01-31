@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
 
 ## StackBitz 
-// https://stackblitz.com/edit/github-fjhr7s-5yeic7
+https://stackblitz.com/edit/github-fjhr7s-5yeic7
 
 ## Development server
 
