@@ -22,7 +22,8 @@ import { FormServiceService } from './service/form-service.service';
 export class CustomFormComponent implements OnInit {
   @Input('fields') fields: Array<GenericFormType> = [];
   @Input() isSubmitBtn: boolean = true;
-  
+  @Input() fieldData: any;
+
   public myForm: FormGroup;
   private changeSubscriptions: Array<Subscription> = [];
 
@@ -32,7 +33,7 @@ export class CustomFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fs.submitListener.subscribe(()=>{
+    this.fs.submitListener.subscribe(() => {
       this.onSubmit();
     })
     this.myForm = this.fb.group({});

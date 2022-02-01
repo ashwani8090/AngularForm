@@ -19,5 +19,16 @@
         border: 1px solid #bbbbbb;
         border-radius: 1px;
         height: 30px;
+        display: flex;
+        align-items: center;
+    }
+}
+::ng-deep .form-group {
+    .mat-select-value-text {
+        color: black;
+        padding: 5px;
+    }
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+        visibility: collapse;
     }
 }

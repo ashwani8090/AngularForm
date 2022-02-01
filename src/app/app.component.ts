@@ -7,22 +7,11 @@ import { FormServiceService } from './generic-form/custom-form/service/form-serv
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[FormServiceService]
+  providers: [FormServiceService]
 })
 export class AppComponent {
   formData: any;
-  constructor(
-    private fs: FormServiceService
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.fs && this.fs.formDataSubmit.subscribe((data) => {
-      this.formData = data;
-    })
-  }
-
-  handleSubmit: Subject<any> = new Subject();
+  fieldData: any;
   fields = [
     {
       type: 'control', name: 'category', label: 'Last Category', inputType: 'date', placeHolder: 'Last Category',
@@ -39,15 +28,79 @@ export class AppComponent {
         { name: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
         { name: 'lastname', label: 'Last Name', inputType: 'text' },
         { name: 'age', label: 'Age', inputType: 'text' },
-        { name: 'group1', label: 'Group', inputType: 'text' },
-        { name: 'group2', label: 'Group', inputType: 'text' },
-        { name: 'group3', label: 'Group', inputType: 'text' },
-        { name: 'group4', label: 'Group', inputType: 'text' },
-        { name: 'group5', label: 'Group', inputType: 'text' },
-        // { name: 'gender', label: 'Gender', inputType: 'dropdown' }
+        { name: 'gender', label: 'Gender', inputType: 'dropdown' },
+        { name: 'state', label: 'State', inputType: 'dropdown' },
+        { name: 'vendor', label: 'Vendor', inputType: 'dropdown' }
       ]
     },
   ]
+  drpData = [{
+    "name": "Alberta",
+    "value": "AB"
+  },
+  {
+    "name": "British Columbia",
+    "value": "BC"
+  },
+  {
+    "name": "Manitoba",
+    "value": "MB"
+  },
+  {
+    "name": "New Brunswick",
+    "value": "NB"
+  },
+  {
+    "name": "Newfoundland and Labrador",
+    "value": "NL"
+  },
+  {
+    "name": "Nova Scotia",
+    "value": "NS"
+  },
+  {
+    "name": "Northwest Territories",
+    "value": "NT"
+  },
+  {
+    "name": "Nunavut",
+    "value": "NU"
+  },
+  {
+    "name": "Ontario",
+    "value": "ON"
+  },
+  {
+    "name": "Prince Edward Island",
+    "value": "PE"
+  },
+  {
+    "name": "Quebec",
+    "value": "QC"
+  },
+  {
+    "name": "Saskatchewan",
+    "value": "SK"
+  },
+  {
+    "name": "Yukon",
+    "value": "YT"
+  }
+  ]
+  constructor(
+    private fs: FormServiceService
+  ) {
+  }
+
+  ngOnInit(): void {
+
+    this.fs && this.fs.formDataSubmit.subscribe((data) => {
+      this.formData = data;
+    })
+    this.fieldData = { gender: this.drpData, vendor: this.drpData, state: this.drpData }
+  }
+
+  handleSubmit: Subject<any> = new Subject();
 
   submit() {
     this.fs.submit();

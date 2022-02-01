@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GenericDropdownComponent } from './custom-form/generic-dropdown/generic-dropdown.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomFormComponent } from './custom-form/custom-form.component';
 import { GenericInputRowComponent } from './custom-form/generic-input-row/generic-input-row.component';
@@ -11,7 +10,6 @@ import { FormServiceService } from './custom-form/service/form-service.service'
   declarations: [
     CustomFormComponent,
     GenericInputRowComponent,
-    GenericDropdownComponent,
   ],
   imports: [
     CommonModule,
