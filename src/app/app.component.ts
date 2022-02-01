@@ -1,24 +1,25 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Validators } from '@angular/forms';
-import { FormServiceService } from './custom-form/service/form-service.service';
+import { FormServiceService } from './generic-form/custom-form/service/form-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[FormServiceService]
 })
 export class AppComponent {
-
+  formData: any;
   constructor(
     private fs: FormServiceService
   ) {
   }
 
   ngOnInit(): void {
-    this.fs && this.fs.formDataSubmit.subscribe((data)=>{
-    console.log({data});
-  })    
+    this.fs && this.fs.formDataSubmit.subscribe((data) => {
+      this.formData = data;
+    })
   }
 
   handleSubmit: Subject<any> = new Subject();
