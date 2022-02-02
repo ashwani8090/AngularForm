@@ -33,11 +33,13 @@
   />
 </div>
 
+
 <div *ngIf="field.inputType == 'dropdown'" class="form-group">
   <label [for]="field.name">{{ field.label }}:</label>
   <mat-form-field class="form-dropdown">
-    <mat-select  [formControl]="formGroup.get(field.name)">
-      <ng-template ngFor let-data [ngForOf]="drpData">
+    <mat-select  [formControl]="formGroup.get(field.name)"  [multiple]="field?.multi">
+      <mat-select-search  [formControl]="searchCtrl"></mat-select-search>
+      <ng-template ngFor let-data [ngForOf]="filteredData">
         <mat-option [value]="data?.value">{{data?.name}}</mat-option>
       </ng-template>
     </mat-select>

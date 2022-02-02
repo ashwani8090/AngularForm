@@ -5,11 +5,13 @@ import { CustomFormComponent } from './custom-form/custom-form.component';
 import { GenericInputRowComponent } from './custom-form/generic-input-row/generic-input-row.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormServiceService } from './custom-form/service/form-service.service'
+import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-select-search.component'
 
 @NgModule({
   declarations: [
     CustomFormComponent,
     GenericInputRowComponent,
+    MatSelectSearchComponent
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,6 @@ import { FormServiceService } from './custom-form/service/form-service.service'
     ReactiveFormsModule
   ],
   exports: [CustomFormComponent],
-  providers:[FormServiceService]
+  providers: [FormServiceService]
 })
 export class GenericFormModule { }
