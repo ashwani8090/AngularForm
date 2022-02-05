@@ -1,4 +1,4 @@
-<div *ngIf="field.inputType == 'text'" class="form-group">
+<div *ngIf="field.inputType == 'text'" class="schema-form-group">
   <label [for]="field.name">{{ field.label }}:</label>
   <input
     type="text"
@@ -11,7 +11,7 @@
   <div class="error">{{errorMsg}}</div>
 </div>
 
-<div *ngIf="field.inputType == 'number'" class="form-group">
+<div *ngIf="field.inputType == 'number'" class="schema-form-group">
   <label [for]="field.name">{{ field.label }}:</label>
   <input
     type="number"
@@ -24,7 +24,7 @@
   <div class="error">{{errorMsg}}</div>
 </div>
 
-<div *ngIf="field.inputType == 'date'" class="form-group">
+<div *ngIf="field.inputType == 'date'" class="schema-form-group">
   <label [for]="field.name">{{ field.label }}:</label>
   <input
     type="date"
@@ -37,7 +37,7 @@
 </div>
 
 
-<div *ngIf="field.inputType == 'dropdown'" class="form-group">
+<div *ngIf="field.inputType == 'dropdown'" class="schema-form-group">
   <label [for]="field.name">{{ field.label }}:</label>
   <mat-form-field class="form-dropdown">
     <mat-select  [formControl]="formGroup.get(field.name)"  [multiple]="field?.multiselect">

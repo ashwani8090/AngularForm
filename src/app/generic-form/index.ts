@@ -10,5 +10,6 @@ export {
     FormGroupControls,
     getFormValidationErrors,
     Dropdown,
-    SchemaFormValidator
+    SchemaFormValidator,
+    SchemFormFieldData
 } from './custom-form/interfaces';

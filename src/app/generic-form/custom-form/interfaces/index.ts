@@ -5,7 +5,8 @@ import {
     GenericFormControl,
     GenericFormGroup,
     Dropdown,
-    SchemaFormValidator
+    SchemaFormValidator,
+    SchemFormFieldData
 } from './form-interfaces';
 import {
     AllValidationErrors,
@@ -24,5 +25,6 @@ export {
     FormGroupControls,
     getFormValidationErrors,
     Dropdown,
-    SchemaFormValidator
+    SchemaFormValidator,
+    SchemFormFieldData
 }

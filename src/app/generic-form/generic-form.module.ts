@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormServiceService } from './custom-form/service/form-service.service';
 import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-select-search.component';
 
+
 @NgModule({
   declarations: [
     CustomFormComponent,
@@ -25,7 +26,7 @@ import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-se
   ],
   exports: [CustomFormComponent],
   providers: [FormServiceService,
-    { provide: MAT_SELECT_CONFIG, useValue: { disableOptionCentering: 'false' } }  // <---- and set the disableOptionCentering in false
+    { provide: MAT_SELECT_CONFIG, useValue: { disableOptionCentering: 'false' } }
   ],
 })
 export class SchemaFormModule { }

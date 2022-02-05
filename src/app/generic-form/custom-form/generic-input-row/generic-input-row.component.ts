@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormServiceService } from '../service/form-service.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { GenericFormControl, Dropdown } from '../interfaces'
-
+import { Dropdown, SchemFormFieldData } from '../interfaces'
+/*add service for fetching api */
+// import { HttpServiceV2 } from '../../../utils/service/http.service.v2';
 
 @Component({
   selector: 'generic-input-row',
   templateUrl: './generic-input-row.component.html',
   styleUrls: ['./generic-input-row.component.scss'],
-  providers: [FormServiceService]
+  // providers: [HttpServiceV2]
 })
 export class GenericInputRowComponent implements OnInit {
   @Input('field') field;
@@ -22,10 +22,10 @@ export class GenericInputRowComponent implements OnInit {
   public filteredData: Array<Dropdown> = [{ value: null, name: 'No data available' }];
   public searchCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
-  private errorMsg: string = null
+  public errorMsg: string = null
 
   constructor(
-    private fs: FormServiceService
+    // private httpService: HttpServiceV2
   ) {
 
   }
@@ -33,19 +33,20 @@ export class GenericInputRowComponent implements OnInit {
   ngOnChanges() {
     /* set dropdown value */
     if (this.field.inputType === 'dropdown') {
-      //check  fieldData  
-      if (this.fieldData && this.field['name'] && this.fieldData[this.field['name']]) {
-        const fieldName = this.field['name'];
-        this.drpData = this.fieldData[fieldName];
-        this.filteredData = this.drpData;
-      }
+      const fieldName = this.field['name'];
+      const schemaFieldData: SchemFormFieldData = this.fieldData && this.fieldData[fieldName]
       //check field hase endpoint then fetch
-      else if (this.field.hasEndpoint) {
-
+      if (this.field.hasEndpoint && this.field.endpoint) {
+        this.fetchData(this.field.endpoint, this.field.payload, schemaFieldData.apiResManipulator)
       }
       //check field has noendpoint then get data from schema
-      else if (this.field.options) {
+      else if (!this.field.hasEndpoint && this.field.options) {
         this.drpData = this.field.options;
+        this.filteredData = this.drpData;
+      }
+      //check  fieldData  
+      else if (this.fieldData && this.field['name'] && this.fieldData[this.field['name']]) {
+        this.drpData = schemaFieldData.options;
         this.filteredData = this.drpData;
       }
     }
@@ -66,7 +67,7 @@ export class GenericInputRowComponent implements OnInit {
     this.searchCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
-        this.filterBanks();
+        this.filterData();
       });
     //remove error on text change  
     this.formGroup.get(this.field['name']).valueChanges.subscribe(() => {
@@ -75,8 +76,7 @@ export class GenericInputRowComponent implements OnInit {
 
   }
 
-
-  filterBanks() {
+  filterData() {
     if (!this.drpData) {
       return;
     }
@@ -88,9 +88,20 @@ export class GenericInputRowComponent implements OnInit {
     } else {
       search = search.toLowerCase();
     }
-    // filter the banks
+    this.filteredData = this.drpData.filter(data => data.name && data.name.toLowerCase().indexOf(search) > -1)
+  }
 
-    this.filteredData = this.drpData.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
 
+  fetchData(endpoint, payload, filter) {
+    /******* add your fetch logic here
+      this.httpService.getRequest(endpoint, payload).
+      subscribe((response) => {
+        this.drpData = response;
+        if (filter) {
+          this.drpData = response.map(filter);
+        }
+        this.filteredData = this.drpData;
+      })
+      ********/
   }
 }

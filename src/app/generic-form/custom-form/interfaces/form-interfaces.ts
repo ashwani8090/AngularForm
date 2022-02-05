@@ -46,3 +46,9 @@ export interface SchemaFormValidator {
     maxlength?: number,
     minlength?: number
 }
+
+export interface SchemFormFieldData {
+    options?: Array<Dropdown>;
+    value?: any;
+    apiResManipulator?: () => {}
+}

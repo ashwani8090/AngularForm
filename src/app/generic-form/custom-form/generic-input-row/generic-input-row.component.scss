@@ -1,4 +1,4 @@
-.form-group {
+.schema-form-group {
     display: flex;
     width: 186px;
     flex-direction: column;
@@ -12,20 +12,20 @@
     input {
         border: 1px solid #bbbbbb;
         border-radius: 1px;
-        height: 30px;
+        height: 30px !important
     }
     .form-dropdown {
         width: 186px;
         border: 1px solid #bbbbbb;
         border-radius: 1px;
-        height: 30px;
+        height: 30px !important;
         display: flex;
         align-items: center;
     }
 }
-::ng-deep .form-group {
+::ng-deep .schema-form-group {
     .mat-select-value-text {
-        color: black;
+        color: black !important;
         padding: 5px;
     }
     .mat-form-field-appearance-legacy .mat-form-field-underline {
