@@ -25,10 +25,10 @@ import { take, takeUntil } from 'rxjs/operators';
 export class MatSelectSearchComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
 
   /** Label of the search placeholder */
-  @Input() placeholderLabel = 'Suche';
+  @Input() placeholderLabel = 'Type to Search';
 
   /** Label to be shown when no entries are found. Set to null if no message should be shown. */
-  @Input() noEntriesFoundLabel = 'Keine Optionen gefunden';
+  @Input() noEntriesFoundLabel = 'No data available';
 
   /** Reference to the search input field */
   @ViewChild('searchSelectInput', {static: false, read: ElementRef}) searchSelectInput: ElementRef;

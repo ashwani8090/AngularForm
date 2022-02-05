@@ -8,6 +8,8 @@ $multiple-check-width: 33px;
   visibility: hidden;
 }
 .mat-select-search-inner {
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 0;
   width: calc(100% + #{2 * $mat-menu-side-padding - $scrollbar-width});
@@ -30,6 +32,9 @@ $multiple-check-width: 33px;
   padding: $mat-menu-side-padding;
   padding-right: $mat-menu-side-padding + $clear-button-width;
   box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
 
 }
 .mat-select-search-no-entries-found {
@@ -38,9 +43,10 @@ $multiple-check-width: 33px;
 .mat-select-search-clear {
   position: absolute;
   right: 0;
-  top: 4px;
 }
-::ng-deep .cdk-overlay-pane-select-search {
-  /* correct offsetY so that the selected option is at the position of the select box when opening */
-  margin-top: -50px;
+
+
+.close{
+  background-color: transparent;
+  border: 0px;
 }

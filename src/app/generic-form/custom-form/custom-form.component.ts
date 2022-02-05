@@ -38,7 +38,6 @@ export class CustomFormComponent implements OnInit {
     })
     this.myForm = this.fb.group({});
     this.initFormFields();
-    this.initFormConstraints();
   }
 
   ngOnDestroy() { this.changeSubscriptions.map(cs => cs.unsubscribe()); }
@@ -76,19 +75,6 @@ export class CustomFormComponent implements OnInit {
     }
   }
 
-  private initFormConstraints() {
-    for (let field of this.fields) {
-      if (GenericHelper.isControl(field)) {
-        this.initChangeSubscription((field as GenericFormControl))
-      }
-
-      if (GenericHelper.isGroup(field)) {
-        for (let control of (field as GenericFormGroup).controls) {
-          this.initChangeSubscription(control);
-        }
-      }
-    }
-  }
 
   private initControl(control: GenericFormControl): FormControl {
     return this.fb.control(control.value, control.validators);
@@ -102,22 +88,6 @@ export class CustomFormComponent implements OnInit {
     return newFormGroup;
   }
 
-  private initChangeSubscription(control: GenericFormControl) {
-    if (control.constraints && control.constraints.length > 0) {
-      this.changeSubscriptions.push(
-        this.myForm.get(control.name).valueChanges.subscribe((value) => {
-          for (let constraint of control.constraints) {
-            for (let executeValue of constraint.executeValues) {
-              if (executeValue.srcValue == value) {
-                this.myForm.get(constraint.targetFieldName).setValue(executeValue.targetValue);
-              }
-            }
-          }
-
-        })
-      );
-    }
-  }
 
 }
 
