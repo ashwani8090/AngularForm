@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { GenericFormModule } from './generic-form/generic-form.module'
+import { SchemaFormModule } from './generic-form/generic-form.module'
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { GenericFormModule } from './generic-form/generic-form.module'
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    GenericFormModule
+    SchemaFormModule
   ],
   providers: [],
   bootstrap: [AppComponent],

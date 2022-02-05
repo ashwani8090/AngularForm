@@ -28,4 +28,4 @@ import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-se
     { provide: MAT_SELECT_CONFIG, useValue: { disableOptionCentering: 'false' } }  // <---- and set the disableOptionCentering in false
   ],
 })
-export class GenericFormModule { }
+export class SchemaFormModule { }

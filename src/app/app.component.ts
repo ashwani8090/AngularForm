@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Validators } from '@angular/forms';
-import { FormServiceService } from './generic-form/custom-form/service/form-service.service';
+import { FormServiceService } from './generic-form';
 
 @Component({
   selector: 'app-root',
