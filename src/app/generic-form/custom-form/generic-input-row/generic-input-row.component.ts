@@ -14,13 +14,15 @@ import { GenericFormControl, Dropdown } from '../interfaces'
 })
 export class GenericInputRowComponent implements OnInit {
   @Input('field') field;
-  @Input('formGroup') formGroup;
+  @Input('formGroup') formGroup: FormControl;
   @Input('fieldData') fieldData;
+  @Input() error: Subject<any> = new Subject();
 
   public drpData: Array<Dropdown> = [{ value: null, name: 'No data available' }];
   public filteredData: Array<Dropdown> = [{ value: null, name: 'No data available' }];
   public searchCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
+  private errorMsg: string = null
 
   constructor(
     private fs: FormServiceService
@@ -50,11 +52,27 @@ export class GenericInputRowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //set error 
+    this.error && this.error.subscribe((e) => {
+      if (e.isValid) {
+        this.errorMsg = '';
+      } else {
+        if (e.name == this.field['name']) {
+          this.errorMsg = e.erromessage;
+        }
+      }
+    })
+    //seaching
     this.searchCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterBanks();
       });
+    //remove error on text change  
+    this.formGroup.get(this.field['name']).valueChanges.subscribe(() => {
+      this.errorMsg = "";
+    })
+
   }
 
 

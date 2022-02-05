@@ -1,8 +1,5 @@
-// refer to link for example
-// https://stackblitz.com/edit/github-fjhr7s-5yeic7
-
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   GenericHelper,
@@ -27,6 +24,7 @@ export class CustomFormComponent implements OnInit {
 
   public myForm: FormGroup;
   private changeSubscriptions: Array<Subscription> = [];
+  private errorSubject: Subject<any> = new Subject();
 
   constructor(
     private fb: FormBuilder,
@@ -45,6 +43,7 @@ export class CustomFormComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
+      this.errorSubject.next({ isValid: true })
       this.fs.formDataSubmit.next(this.myForm.value);
     } else {
       const error: AllValidationErrors = getFormValidationErrors(this.myForm.controls).shift();
@@ -59,7 +58,7 @@ export class CustomFormComponent implements OnInit {
           case 'areEqual': text = `${error.control_name} must be equal!`; break;
           default: text = `${error.control_name}: ${error.error_name}: ${error.error_value}`;
         }
-        console.log(text)
+        this.errorSubject.next({ name: error.control_name, erromessage: text, isValid: false })
       }
       return;
     }

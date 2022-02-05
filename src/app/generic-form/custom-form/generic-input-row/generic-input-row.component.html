@@ -8,6 +8,7 @@
     [formControl]="formGroup.get(field.name)"
     [placeholder]="field.placeHolder ? field.placeHolder : ''"
   />
+  <div class="error">{{errorMsg}}</div>
 </div>
 
 <div *ngIf="field.inputType == 'number'" class="form-group">
@@ -20,6 +21,7 @@
     [formControl]="formGroup.get(field.name)"
     [placeholder]="field.placeHolder ? field.placeHolder : ''"
   />
+  <div class="error">{{errorMsg}}</div>
 </div>
 
 <div *ngIf="field.inputType == 'date'" class="form-group">
@@ -31,6 +33,7 @@
     [formControl]="formGroup.get(field.name)"
     [placeholder]="field.placeHolder ? field.placeHolder : ''"
   />
+  <div class="error">{{errorMsg}}</div>
 </div>
 
 
@@ -44,4 +47,5 @@
       </ng-template>
     </mat-select>
   </mat-form-field>
+  <div class="error">{{errorMsg}}</div>
 </div>

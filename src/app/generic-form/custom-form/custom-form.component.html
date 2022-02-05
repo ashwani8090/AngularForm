@@ -5,6 +5,7 @@
             <generic-input-row
              [field]="field" 
              [fieldData]="fieldData"
+             [error]="errorSubject"
              [formGroup]="myForm"></generic-input-row>
         </div>
 
@@ -16,6 +17,7 @@
                         <generic-input-row 
                             [fieldData]="fieldData"
                             [field]="control" 
+                            [error]="errorSubject"
                             [formGroup]="myForm.get(field.name)">
                         </generic-input-row>
                     </div>

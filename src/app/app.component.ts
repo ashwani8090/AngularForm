@@ -14,7 +14,7 @@ export class AppComponent {
   fieldData: any;
   drpData = [{
     "name": "Alberta",
-    "value": "AB"
+    "value": {name:'dasd',id:'dasd'}
   },
   {
     "name": "British Columbia",
@@ -68,12 +68,17 @@ export class AppComponent {
   fields = [
     {
       type: 'control', name: 'category', label: 'Last Category', inputType: 'text', placeHolder: 'Last Category',
-      validators: { required: true, maxlength: 2, minlength: 2 },
+      validators: { required: true, minlength: 2 },
     },
-    { type: 'control', name: 'id', label: 'Last ID', inputType: 'number', placeHolder: 'Last ID' },
+    {
+      type: 'control', name: 'id', label: 'Last ID', inputType: 'number', placeHolder: 'Last ID',
+      validators: { required: true },
+    },
     { type: 'control', name: 'associatedid', label: 'Construction Associated', inputType: 'text', placeHolder: 'Construction Associated' },
     {
       type: 'control', name: 'size', label: 'Size', inputType: 'date', placeHolder: 'Size',
+      validators: { required: true },
+
     },
     {
       type: 'group', name: 'measurement', groupTitle: 'Last Measurements in (mm)',
@@ -94,7 +99,8 @@ export class AppComponent {
           inputType: 'dropdown',
           hasEndpoint: false,
           options: this.drpData,
-          multiselect: true
+          multiselect: true,
+          validators: { required: true },
         },
       ]
     },

@@ -1,3 +1,5 @@
+// refer to link for example
+// https://stackblitz.com/edit/github-fjhr7s-5yeic7
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
