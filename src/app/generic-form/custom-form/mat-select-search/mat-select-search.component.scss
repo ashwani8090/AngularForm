@@ -1,6 +1,6 @@
 
 $mat-menu-side-padding: 16px !default;
-$scrollbar-width: 17px;
+$scrollbar-width: 30px;
 $clear-button-width: 20px;
 $multiple-check-width: 33px;
 
@@ -22,10 +22,8 @@ $multiple-check-width: 33px;
   }
 }
 
-::ng-deep .mat-select-search-panel {
-  /* allow absolute positioning relative to outer options container */
-  transform: none !important;
-  max-height: 350px;
+.mat-select-panel {
+  transform: translate(-2px, 30px) !important;
 }
 
 .mat-select-search-input {

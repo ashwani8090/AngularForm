@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomFormComponent } from './custom-form/custom-form.component';
 import { GenericInputRowComponent } from './custom-form/generic-input-row/generic-input-row.component';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule, MAT_SELECT_CONFIG } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { FormServiceService } from './custom-form/service/form-service.service';
 import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-select-search.component';
@@ -22,6 +22,8 @@ import { MatSelectSearchComponent } from './custom-form/mat-select-search/mat-se
     MatIconModule,
   ],
   exports: [CustomFormComponent],
-  providers: [FormServiceService],
+  providers: [FormServiceService,
+    { provide: MAT_SELECT_CONFIG, useValue: { disableOptionCentering: 'false' } }  // <---- and set the disableOptionCentering in false
+  ],
 })
-export class GenericFormModule {}
+export class GenericFormModule { }
