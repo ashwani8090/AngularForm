@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormServiceService } from '../service/form-service.service';
 import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { GenericFormControl, Dropdown } from '../interfaces'
 
 
 @Component({
@@ -16,8 +17,8 @@ export class GenericInputRowComponent implements OnInit {
   @Input('formGroup') formGroup;
   @Input('fieldData') fieldData;
 
-  public drpData: any = [];
-  public filteredData: any = []
+  public drpData: Array<Dropdown> = [{ value: null, name: 'No data available' }];
+  public filteredData: Array<Dropdown> = [{ value: null, name: 'No data available' }];
   public searchCtrl: FormControl = new FormControl();
   private _onDestroy = new Subject<void>();
 
@@ -28,10 +29,23 @@ export class GenericInputRowComponent implements OnInit {
   }
 
   ngOnChanges() {
-    if (this.field['name']) {
-      const fieldName = this.field['name'];
-      this.drpData = this.fieldData[fieldName];
-      this.filteredData = this.drpData;
+    /* set dropdown value */
+    if (this.field.inputType === 'dropdown') {
+      //check  fieldData  
+      if (this.fieldData && this.field['name'] && this.fieldData[this.field['name']]) {
+        const fieldName = this.field['name'];
+        this.drpData = this.fieldData[fieldName];
+        this.filteredData = this.drpData;
+      }
+      //check field hase endpoint then fetch
+      else if (this.field.hasEndpoint) {
+
+      }
+      //check field has noendpoint then get data from schema
+      else if (this.field.options) {
+        this.drpData = this.field.options;
+        this.filteredData = this.drpData;
+      }
     }
   }
 
@@ -61,23 +75,4 @@ export class GenericInputRowComponent implements OnInit {
     this.filteredData = this.drpData.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
 
   }
-
-  // filterBanksMulti() {
-  //   if (!this.drpData) {
-  //     return;
-  //   }
-  //   // get the search keyword
-  //   let search = this.bankMultiFilterCtrl.value;
-  //   if (!search) {
-  //     this.filteredBanksMulti.next(this.drpData.slice());
-  //     return;
-  //   } else {
-  //     search = search.toLowerCase();
-  //   }
-  //   // filter the banks
-  //   this.filteredBanksMulti.next(
-  //     this.drpData.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
-  //   );
-  // }
-
 }

@@ -9,7 +9,7 @@
         </div>
 
         <div class="group-container" *ngIf="field.type == 'group'" [formGroupName]="field.name">
-            <h3>{{field.groupTitle}}</h3>
+            <h3 class="group-title">{{field.groupTitle}}</h3>
             <div class="group">
                 <ng-template ngFor let-control [ngForOf]="field.controls">
                     <div class="inputs">

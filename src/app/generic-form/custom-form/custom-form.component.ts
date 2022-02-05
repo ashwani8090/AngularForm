@@ -2,25 +2,26 @@
 // https://stackblitz.com/edit/github-fjhr7s-5yeic7
 
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   GenericHelper,
   GenericFormControl,
   GenericFormGroup,
   GenericFormType,
   AllValidationErrors,
-  getFormValidationErrors
+  getFormValidationErrors,
+  SchemaFormValidator
 } from './interfaces';
 import { FormServiceService } from './service/form-service.service';
 
 @Component({
-  selector: 'custom-form',
+  selector: 'schema-form',
   templateUrl: './custom-form.component.html',
   styleUrls: ['./custom-form.component.scss']
 })
 export class CustomFormComponent implements OnInit {
-  @Input('fields') fields: Array<GenericFormType> = [];
+  @Input('schema') fields: Array<GenericFormType> = [];
   @Input() isSubmitBtn: boolean = true;
   @Input() fieldData: any;
 
@@ -54,6 +55,7 @@ export class CustomFormComponent implements OnInit {
           case 'pattern': text = `${error.control_name} has wrong pattern!`; break;
           case 'email': text = `${error.control_name} has wrong email format!`; break;
           case 'minlength': text = `${error.control_name} has wrong length! Required length: ${error.error_value.requiredLength}`; break;
+          case 'maxlength': text = `${error.control_name} has wrong length! Required length: ${error.error_value.requiredLength}`; break;
           case 'areEqual': text = `${error.control_name} must be equal!`; break;
           default: text = `${error.control_name}: ${error.error_name}: ${error.error_value}`;
         }
@@ -77,17 +79,38 @@ export class CustomFormComponent implements OnInit {
 
 
   private initControl(control: GenericFormControl): FormControl {
-    return this.fb.control(control.value, control.validators);
+    return this.fb.control(control.value, this.addValidator(control.validators));
   }
 
   private initGroup(group: GenericFormGroup): FormGroup {
     let newFormGroup = this.fb.group({});
     for (let control of group.controls) {
-      newFormGroup.addControl(control.name, new FormControl(control.value ? control.value : '', control.validators));
+      newFormGroup.addControl(control.name, new FormControl(control.value ? control.value : '', this.addValidator(control.validators)));
     }
     return newFormGroup;
   }
 
+  private addValidator(validatorsObj: SchemaFormValidator) {
+    let validatorarray = [];
+    if (validatorsObj) {
+      for (let validateKey in validatorsObj) {
+        const schemaformValidatorValue = validatorsObj[validateKey];
+        if (validateKey == 'required' && schemaformValidatorValue) {
+          validatorarray.push(Validators.required)
+        }
+        if (validateKey == 'pattern') {
+          validatorarray.push(Validators.pattern(schemaformValidatorValue))
+        }
+        if (validateKey == 'maxlength') {
+          validatorarray.push(Validators.maxLength(schemaformValidatorValue))
+        }
+        if (validateKey == 'minlength') {
+          validatorarray.push(Validators.minLength(schemaformValidatorValue))
+        }
+      }
+    }
+    return validatorarray;
+  }
 
 }
 

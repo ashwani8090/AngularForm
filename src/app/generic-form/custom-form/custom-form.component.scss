@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    padding: 16px;
     .inputs {
         height: 50px;
         margin-right: 20px;
@@ -20,5 +21,11 @@
     .footer{
         width: 100%;
         margin-top: 20px;
+    }
+
+    .group-title{
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
 }

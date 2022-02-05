@@ -12,28 +12,6 @@ import { FormServiceService } from './generic-form/custom-form/service/form-serv
 export class AppComponent {
   formData: any;
   fieldData: any;
-  fields = [
-    {
-      type: 'control', name: 'category', label: 'Last Category', inputType: 'date', placeHolder: 'Last Category',
-      validators: [Validators.required],
-    },
-    { type: 'control', name: 'id', label: 'Last ID', inputType: 'number', placeHolder: 'Last ID' },
-    { type: 'control', name: 'associatedid', label: 'Construction Associated', inputType: 'text', placeHolder: 'Construction Associated' },
-    {
-      type: 'control', name: 'size', label: 'Size', inputType: 'text', placeHolder: 'Size',
-    },
-    {
-      type: 'group', name: 'measurement', groupTitle: 'Last Measurements in (mm)',
-      controls: [
-        { name: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
-        { name: 'lastname', label: 'Last Name', inputType: 'text' },
-        { name: 'age', label: 'Age', inputType: 'text' },
-        { name: 'gender', label: 'Gender', inputType: 'dropdown' },
-        { name: 'state', label: 'State', inputType: 'dropdown' },
-        { name: 'vendor', label: 'Vendor', inputType: 'dropdown' }
-      ]
-    },
-  ]
   drpData = [{
     "name": "Alberta",
     "value": "AB"
@@ -87,6 +65,41 @@ export class AppComponent {
     "value": "YT"
   }
   ]
+  fields = [
+    {
+      type: 'control', name: 'category', label: 'Last Category', inputType: 'text', placeHolder: 'Last Category',
+      validators: { required: true, maxlength: 2, minlength: 2 },
+    },
+    { type: 'control', name: 'id', label: 'Last ID', inputType: 'number', placeHolder: 'Last ID' },
+    { type: 'control', name: 'associatedid', label: 'Construction Associated', inputType: 'text', placeHolder: 'Construction Associated' },
+    {
+      type: 'control', name: 'size', label: 'Size', inputType: 'date', placeHolder: 'Size',
+    },
+    {
+      type: 'group', name: 'measurement', groupTitle: 'Last Measurements in (mm)',
+      controls: [
+        { name: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+        { name: 'lastname', label: 'Last Name', inputType: 'text' },
+        { name: 'age', label: 'Age', inputType: 'text' },
+        {
+          name: 'gender',
+          label: 'Gender',
+          inputType: 'dropdown',
+          hasEndpoint: true,
+          endpoint: ''
+
+        },
+        {
+          name: 'state', label: 'State',
+          inputType: 'dropdown',
+          hasEndpoint: false,
+          options: this.drpData,
+          multiselect: true
+        },
+      ]
+    },
+  ]
+
   constructor(
     private fs: FormServiceService
   ) {
@@ -97,7 +110,6 @@ export class AppComponent {
     this.fs && this.fs.formDataSubmit.subscribe((data) => {
       this.formData = data;
     })
-    this.fieldData = { gender: this.drpData, vendor: this.drpData, state: this.drpData }
   }
 
   handleSubmit: Subject<any> = new Subject();
@@ -105,4 +117,5 @@ export class AppComponent {
   submit() {
     this.fs.submit();
   }
+
 }
