@@ -1,13 +1,12 @@
 <div>
   <div class="app">
     <schema-form
-    [schema]="fields" 
-    [fieldData]="fieldData"
-    [isSubmitBtn]="false">
+      [schema]="fields"
+      [fieldData]="fieldData"
+      [isSubmitBtn]="false"
+    >
     </schema-form>
   </div>
-  <button (click)="submit()">
-    Submit
-  </button>
-  {{formData | json}}
+  <button (click)="submit()">Submit</button>
+  {{ formData | json }}
 </div>
