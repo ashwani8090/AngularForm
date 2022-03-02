@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { FormServiceService } from './generic-form';
 
@@ -13,7 +14,7 @@ export class AppComponent {
   fieldData: any;
   drpData = [{
     "name": "Alberta",
-    "value": {name:'dasd',id:'dasd'}
+    "value": { name: 'dasd', id: 'dasd' }
   },
   {
     "name": "British Columbia",
@@ -90,8 +91,7 @@ export class AppComponent {
           label: 'Gender',
           inputType: 'dropdown',
           hasEndpoint: true,
-          endpoint: ''
-
+          endpoint: '',
         },
         {
           name: 'state', label: 'State',
@@ -104,6 +104,54 @@ export class AppComponent {
       ]
     },
   ]
+
+  // formgroup:{
+  //   tabs:[FormGroup,FormGroup]
+  // }
+  // FormGroup:{
+  //   type:'',
+  //   title:'',
+  //   controls:{
+  //     columns:[],
+  //     rows:[]
+  //   }
+  // }
+
+  schema = [
+    {
+      type: "group",
+      tablekey: "shipment info",
+      controls: {
+        columns: [
+          { tablekey: 'firstName1', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstName2', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+
+        ],
+        rows: [
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+        ]
+      }
+    },
+    {
+      type: "group",
+      tablekey: "payment info",
+      controls: {
+        columns: [
+          { tablekey: 'firstNam3', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstNam4', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+
+        ],
+        rows: [
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+          { tablekey: 'firstName', label: 'First Name', inputType: 'text', placeHolder: 'First Name' },
+        ]
+      }
+    }
+  ]
+
 
   constructor(
     private fs: FormServiceService
@@ -121,6 +169,14 @@ export class AppComponent {
 
   submit() {
     this.fs.submit();
+  }
+
+  api() {
+    [{
+      customtab: ''
+    },
+    {},
+    {}]
   }
 
 }

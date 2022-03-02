@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   GenericHelper,
   GenericFormControl,
@@ -9,19 +9,19 @@ import {
   AllValidationErrors,
   getFormValidationErrors,
   SchemaFormValidator
-} from './interfaces';
-import { FormServiceService } from './service/form-service.service';
+} from '../interfaces';
+import { DataServiceService } from '../data-service.service';
 
 @Component({
-  selector: 'schema-form',
-  templateUrl: './custom-form.component.html',
-  styleUrls: ['./custom-form.component.scss']
+  selector: 'app-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.css']
 })
-export class CustomFormComponent implements OnInit {
-  @Input('schema') fields: Array<GenericFormType> = [];
+export class TabsComponent implements OnInit {
+  @Input('schema') fields: Array<any> = [];
   @Input() isSubmitBtn: boolean = true;
   @Input() fieldData: any;
-  @Input() httpService:any;
+  @Input() httpService: any;
 
   public myForm: FormGroup;
   private changeSubscriptions: Array<Subscription> = [];
@@ -29,14 +29,14 @@ export class CustomFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private fs: FormServiceService) {
+    private fs: DataServiceService) {
   }
 
   ngOnInit() {
-    this.fs.submitListener.subscribe(() => {
-      this.onSubmit();
-    })
-    this.myForm = this.fb.group({});
+    // this.fs.submitListener.subscribe(() => {
+    //   this.onSubmit();
+    // })
+    this.myForm = this.fb.group({ tabs: new FormArray([]) });
     this.initFormFields();
   }
 
@@ -45,7 +45,7 @@ export class CustomFormComponent implements OnInit {
   onSubmit() {
     if (this.myForm.valid) {
       this.errorSubject.next({ isValid: true })
-      this.fs.formDataSubmit.next(this.myForm.value);
+      // this.fs.formDataSubmit.next(this.myForm.value);
     } else {
       const error: AllValidationErrors = getFormValidationErrors(this.myForm.controls).shift();
       if (error) {
@@ -67,26 +67,35 @@ export class CustomFormComponent implements OnInit {
 
   private initFormFields() {
     console.log(this.fields)
-    for (let field of this.fields) {
-      if (GenericHelper.isControl(field)) {
-        this.myForm.addControl(field.name, this.initControl(field as GenericFormControl));
-      }
-
+    let tabs = this.fb.group({
+    });
+    for (const field of this.fields) {
       if (GenericHelper.isGroup(field)) {
-        this.myForm.addControl(field.name, this.initGroup(field as GenericFormGroup));
+        tabs.addControl(field.tablekey, this.initGroup(field as GenericFormGroup));
       }
+      const tabsItems = this.myForm.get('tabs') as FormArray;
+      tabsItems.push(tabs);
     }
+    console.log(this.myForm)
   }
 
 
-  private initControl(control: GenericFormControl): FormControl {
-    return this.fb.control(control.value, this.addValidator(control.validators));
+  private initGroup(group): FormGroup {
+    let newFormGroup = this.fb.group({
+      columns: new FormArray([]),
+      rows: new FormArray([])
+    });
+    const columns = newFormGroup.get('columns') as FormArray;
+    columns.push(this.addCtrl(group.controls.columns))
+    // newFormGroup.addControl('columns',))
+    
+    return newFormGroup;
   }
 
-  private initGroup(group: GenericFormGroup): FormGroup {
-    let newFormGroup = this.fb.group({});
-    for (let control of group.controls) {
-      newFormGroup.addControl(control.name, new FormControl(control.value ? control.value : '', this.addValidator(control.validators)));
+  addCtrl(controls){
+    let newFormGroup = this.fb.group({    });
+    for (let control of controls) {
+      newFormGroup.addControl(control.tablekey, new FormControl(control.value ? control.value : '', this.addValidator(control.validators)));
     }
     return newFormGroup;
   }
@@ -114,4 +123,3 @@ export class CustomFormComponent implements OnInit {
   }
 
 }
-

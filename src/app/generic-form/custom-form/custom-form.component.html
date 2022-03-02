@@ -6,6 +6,7 @@
              [field]="field" 
              [fieldData]="fieldData"
              [error]="errorSubject"
+             [httpService]="httpService"
              [formGroup]="myForm"></generic-input-row>
         </div>
 
@@ -18,6 +19,7 @@
                             [fieldData]="fieldData"
                             [field]="control" 
                             [error]="errorSubject"
+                            [httpService]="httpService"
                             [formGroup]="myForm.get(field.name)">
                         </generic-input-row>
                     </div>
